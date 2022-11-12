@@ -1,0 +1,79 @@
+server:
+  port: 10000
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+
+#management:
+#  server:
+#    port: 8081
+#  endpoint:
+#    shutdown:
+#      enabled: true
+#    health:
+#      show-details: always
+#      probes:
+#        enabled: true
+
+spring:
+#  kafka:
+#    bootstrap-servers: kafka-svc:9092
+    # !!! Need add above line as producer of DLT will use this as broker location.
+    # If not will use localhost:9092 which coz error on non-local env.
+#  datasource:
+#    url: jdbc:mariadb://mariadb-svc:3306/notifications?useUnicode=true;characterEncoding=utf-8;serverTimezone=UTC;
+#    username: root
+#    password: SportsSuite1
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    hikari:
+#      connection-timeout: 2500
+#      maximum-pool-size: 20
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    #    database-platform: org.hibernate.dialect.MariaDB53Dialect
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        generate_statistics: false
+#        order_inserts: true
+#        order_updates: true
+#        format_sql: true
+#        jdbc:
+#          batch_versioned_data: true
+#          batch_size: 100
+#          order_inserts: true
+#          lob.non_contextual_creation: true
+
+#kafka:
+#  common:
+#    bootstrapAddress: kafka-svc:9092
+#  notification:
+#    groupId: eventflow
+#    topic: notificationEvent
+#  userNotification:
+#    groupId: eventflow
+#    groupId2: dbhandle
+#    topic: userNotification
+#    producer:
+#      isEnabled: true
+#      name: userNotificationProducer
+#      bufferMemory: 33554432 #32M
+#      batchSize: 32768 #32K
+#      lingerMs: 20
+#      retries: 1
+#  subscription:
+#    groupId: ss
+#    topic: subscription
+
+logging:
+  level:
+    root: INFO
+    com.sap: INFO
+    org:
+      springframework:
+#        kafka: DEBUG # spring-kafka
+        kafka: INFO # spring-kafka
+      apache:
+#        kafka: DEBUG # kafka
+        kafka: INFO # kafka
