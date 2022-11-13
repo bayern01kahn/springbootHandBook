@@ -1,4 +1,4 @@
-package com.justin.springbootHandBook.annotation.async.config;
+package com.justin.springbootHandBook.annotation.Async.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;

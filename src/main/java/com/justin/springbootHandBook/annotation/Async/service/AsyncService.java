@@ -1,4 +1,4 @@
-package com.justin.springbootHandBook.annotation.async.service;
+package com.justin.springbootHandBook.annotation.Async.service;
 
 import com.justin.springbootHandBook.common.util.ApplicationContextUtil;
 import lombok.extern.slf4j.Slf4j;

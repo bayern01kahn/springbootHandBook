@@ -1,4 +1,4 @@
-package com.justin.springbootHandBook.annotation.async.service;
+package com.justin.springbootHandBook.annotation.Async.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

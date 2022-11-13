@@ -1,7 +1,7 @@
-package com.justin.springbootHandBook.annotation.async.controller;//package com.sap.ns.controller;
+package com.justin.springbootHandBook.annotation.Async.controller;//package com.sap.ns.controller;
 
 
-import com.justin.springbootHandBook.annotation.async.service.AsyncService;
+import com.justin.springbootHandBook.annotation.Async.service.AsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

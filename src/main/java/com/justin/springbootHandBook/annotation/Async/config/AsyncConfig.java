@@ -1,4 +1,4 @@
-package com.justin.springbootHandBook.annotation.async.config;
+package com.justin.springbootHandBook.annotation.Async.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
