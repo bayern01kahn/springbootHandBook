@@ -19,6 +19,9 @@ public class AsyncService {
     @Autowired
     public AnotherAsyncService anotherAsyncService;
 
+    @Autowired
+    public DataService dataService;
+
     public void all(){
         /**
          * As step1() step2() step3() in same class as all().
@@ -108,4 +111,13 @@ public class AsyncService {
         }
         return future;
     }
+
+
+    @Async
+    public void dbOperate(){
+        log.info("in db operate. some logic here first");
+        dataService.allStep();
+        log.info("some logic later");
+    }
+
 }
