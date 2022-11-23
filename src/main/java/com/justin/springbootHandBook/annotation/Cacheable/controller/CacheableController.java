@@ -1,4 +1,4 @@
-package com.justin.springbootHandBook.annotation.Transactional.controller;//package com.sap.ns.controller;
+package com.justin.springbootHandBook.annotation.Cacheable.controller;//package com.sap.ns.controller;
 
 
 import com.justin.springbootHandBook.annotation.Async.service.AsyncService;
@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping(value = "/v1")
-public class TransactionalController {
+public class CacheableController {
 
-
-    @GetMapping("/transactional/work")
+    @GetMapping("/cacheable/work")
     public HttpStatus work() {
 
         log.info("in Controller");
@@ -24,7 +23,7 @@ public class TransactionalController {
         return HttpStatus.OK;
     }
 
-    @GetMapping("/transactional/workWithFutureReturn")
+    @GetMapping("/cacheable/workWithFutureReturn")
     public HttpStatus workWithFutureReturn() {
 
         log.info("in workWithFutureReturn");
