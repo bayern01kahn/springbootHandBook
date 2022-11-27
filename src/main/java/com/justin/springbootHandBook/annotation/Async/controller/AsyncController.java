@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -48,6 +50,28 @@ public class AsyncController {
         }
         return HttpStatus.OK;
     }
+
+
+    @RequestMapping(path = "/asyncCompletableComposed", method = RequestMethod.GET)
+    public CompletableFuture<String> getValueAsyncUsingCompletableFutureComposed() {
+
+        return CompletableFuture
+                .supplyAsync(this::processRequest)
+                .thenApplyAsync(this::reverseString);
+    }
+
+    private <U> U processRequest() {
+
+        return null;
+    }
+
+    private <U> U reverseString(Object o) {
+
+        return null;
+    }
+
+
+
 
     @GetMapping("/async/work/methodsInSameClass")
     public HttpStatus work1() {
