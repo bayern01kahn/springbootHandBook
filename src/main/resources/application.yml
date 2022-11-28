@@ -17,33 +17,32 @@ server:
 #        enabled: true
 
 spring:
-#  kafka:
-#    bootstrap-servers: kafka-svc:9092
-    # !!! Need add above line as producer of DLT will use this as broker location.
-    # If not will use localhost:9092 which coz error on non-local env.
-#  datasource:
-#    url: jdbc:mariadb://mariadb-svc:3306/notifications?useUnicode=true;characterEncoding=utf-8;serverTimezone=UTC;
-#    username: root
-#    password: SportsSuite1
-#    driver-class-name: org.mariadb.jdbc.Driver
-#    hikari:
-#      connection-timeout: 2500
-#      maximum-pool-size: 20
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-#    #    database-platform: org.hibernate.dialect.MariaDB53Dialect
-#    show-sql: false
-#    properties:
-#      hibernate:
-#        generate_statistics: false
-#        order_inserts: true
-#        order_updates: true
-#        format_sql: true
-#        jdbc:
-#          batch_versioned_data: true
-#          batch_size: 100
-#          order_inserts: true
-#          lob.non_contextual_creation: true
+  application:
+    name: springbootHandBook
+  datasource:
+    url: jdbc:postgresql://localhost:5432/handbook
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 2500
+      maximum-pool-size: 20
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        default_schema: handbook
+        generate_statistics: false
+        order_inserts: true
+        order_updates: true
+        format_sql: true
+        jdbc:
+          batch_versioned_data: true
+          batch_size: 100
+          order_inserts: true
+          lob.non_contextual_creation: true
 
 #kafka:
 #  common:
