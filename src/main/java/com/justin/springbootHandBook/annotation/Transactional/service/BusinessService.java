@@ -2,9 +2,10 @@ package com.justin.springbootHandBook.annotation.Transactional.service;
 
 import com.justin.springbootHandBook.annotation.Transactional.dao.TeamRepository;
 import com.justin.springbootHandBook.annotation.Transactional.entity.Team;
-import com.justin.springbootHandBook.common.util.ApplicationContextUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor(onConstructor_ ={@Lazy})
 public class BusinessService {
 
     @Autowired
@@ -21,7 +23,10 @@ public class BusinessService {
     @Autowired
     private TransactionService transactionService;
 
-    public void saveTransactionNotWork() {
+    @Lazy
+    private final BusinessService self;
+
+    public void rollBackNotWork() {
         Team team = new Team();
         team.setName("England");
         methodInSameClassAndWithAnnotation(team); //@Transactional is on this method.
@@ -36,7 +41,7 @@ public class BusinessService {
     /** ------------------------------------------------------- **/
 
     @Transactional   //@Transactional is on this method.
-    public void saveTransactionWork() {
+    public void rollBackWorkInSameClass() {
         Team team = new Team();
         team.setName("Portugal");
         methodInSameClassAndWithNoAnnotation(team);
@@ -49,15 +54,20 @@ public class BusinessService {
 
     /** ------------------------------------------------------- **/
 
-    public void workRecommended() throws SQLException {
+    public void rollBackWorkRecommended() {
         Team team = new Team();
         team.setName("England");
         transactionService.methodRecommended(team);
     }
 
+    public void rollBackWorkInSameClassSelfInject() {
+        Team team = new Team();
+        team.setName("SameClass");
+        self.methodInSameClassAndWithAnnotation(team);
+    }
 
 
-
+    /** ---------------------------------------------------------------------------------------------------- **/
 
 
 
@@ -132,6 +142,7 @@ public class BusinessService {
     public void businessLogicB() {
         log.info("Doing some business logic B here");
     }
+
 
 
 }

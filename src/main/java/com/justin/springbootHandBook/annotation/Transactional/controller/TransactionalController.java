@@ -19,20 +19,26 @@ public class TransactionalController {
     private BusinessService businessService;
 
     @GetMapping("/rollBackNotWork")
-    public HttpStatus saveNotWork() throws SQLException {
-        businessService.saveTransactionNotWork();
+    public HttpStatus rollBackNotWork() throws SQLException {
+        businessService.rollBackNotWork();
         return HttpStatus.OK;
     }
 
-    @GetMapping("/rollBackWork")
-    public HttpStatus saveWork() throws SQLException {
-        businessService.saveTransactionWork();
+    @GetMapping("/rollBackWorkInSameClass")
+    public HttpStatus rollBackWorkInSameClass() throws SQLException {
+        businessService.rollBackWorkInSameClass();
+        return HttpStatus.OK;
+    }
+
+    @GetMapping("/rollBackWorkInSameClassSelfInject")
+    public HttpStatus rollBackWorkInSameClassSelfInject() throws SQLException {
+        businessService.rollBackWorkInSameClassSelfInject();
         return HttpStatus.OK;
     }
 
     @GetMapping("/rollBackWorkRecommended")
-    public HttpStatus WorkInSameClass() throws SQLException {
-        businessService.workRecommended();
+    public HttpStatus rollBackWorkRecommended() throws SQLException {
+        businessService.rollBackWorkRecommended();
         return HttpStatus.OK;
     }
 
@@ -40,6 +46,11 @@ public class TransactionalController {
     /** -------------------------------------------------------------------------------------- **/
 
 
+    //    @GetMapping("/rollBackWork")
+//    public HttpStatus saveWork() throws SQLException {
+//        businessService.saveTransactionWork();
+//        return HttpStatus.OK;
+//    }
 
     @GetMapping("/saveWithCheckedRollBackForNotWork")
     public HttpStatus saveWithCheckedRollback() throws SQLException {
