@@ -13,16 +13,10 @@ import java.sql.SQLException;
 @Slf4j
 @RestController
 @RequestMapping(value = "/v1/transactional")
-public class TransactionalController {
+public class TransactionalWorksController {
 
     @Autowired
     private BusinessService businessService;
-
-    @GetMapping("/rollBackNotWork")
-    public HttpStatus rollBackNotWork() throws SQLException {
-        businessService.rollBackNotWork();
-        return HttpStatus.OK;
-    }
 
     @GetMapping("/rollBackWorkInSameClass")
     public HttpStatus rollBackWorkInSameClass() throws SQLException {
@@ -52,12 +46,6 @@ public class TransactionalController {
 //        return HttpStatus.OK;
 //    }
 
-    @GetMapping("/saveWithCheckedRollBackForNotWork")
-    public HttpStatus saveWithCheckedRollback() throws SQLException {
-        businessService.saveWithCheckedRollBackForNotWork();
-        return HttpStatus.OK;
-    }
-
     @GetMapping("/saveWithCheckedRollBackForWorks")
     public HttpStatus saveWithCheckedRollBackForWorks() throws SQLException {
         businessService.saveWithCheckedRollBackForWorks();
@@ -71,18 +59,5 @@ public class TransactionalController {
 //        businessService.saveWithNoRollBack();
 //        return HttpStatus.OK;
 //    }
-
-
-    @GetMapping("/work")
-    public HttpStatus work() {
-        log.info("in Controller");
-        return HttpStatus.OK;
-    }
-
-    @GetMapping("/workWithFutureReturn")
-    public HttpStatus workWithFutureReturn() {
-        log.info("in workWithFutureReturn");
-        return HttpStatus.OK;
-    }
 
 }
