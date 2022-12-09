@@ -21,7 +21,7 @@ public class BusinessService {
     private TeamRepository teamRepository;
 
     @Autowired
-    private RecordService recordService;
+    private InsideService insideService;
 
     @Autowired
     private TransactionService transactionService;
@@ -103,25 +103,6 @@ public class BusinessService {
         updateTeam(team);
     }
 
-
-
-
-
-
-
-
-
-    @Transactional
-    public Team saveTeamAndRecord(Team team){
-        teamRepository.save(team);
-        try{
-            recordService.record();
-        } catch (IllegalArgumentException e){
-            log.error("Errors: {}", e);
-        }
-        log.info("New Saved Team Id: {}", team.getId());
-        return team;
-    }
 
     public Long saveTeamReturnNewID(Team team){
         return teamRepository.save(team).getId();
