@@ -1,0 +1,47 @@
+server:
+  port: 10000
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: springbootHandBook
+  datasource:
+    url: jdbc:postgresql://localhost:5432/handbook
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 2500
+      maximum-pool-size: 20
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        default_schema: handbook
+        generate_statistics: false
+        order_inserts: true
+        order_updates: true
+        format_sql: true
+        jdbc:
+          batch_versioned_data: true
+          batch_size: 100
+          order_inserts: true
+          lob.non_contextual_creation: true
+
+
+logging:
+  level:
+    root: INFO
+    com.sap: INFO
+    org:
+      springframework:
+#        kafka: DEBUG # spring-kafka
+        kafka: INFO # spring-kafka
+      apache:
+#        kafka: DEBUG # kafka
+        kafka: INFO # kafka

@@ -21,6 +21,9 @@ public class BusinessService {
     private TeamRepository teamRepository;
 
     @Autowired
+    private RecordService recordService;
+
+    @Autowired
     private TransactionService transactionService;
 
     @Lazy
@@ -108,10 +111,16 @@ public class BusinessService {
 
 
 
-    public Team saveTeam(Team team){
+    @Transactional
+    public Team saveTeamAndRecord(Team team){
         teamRepository.save(team);
+        try{
+            recordService.record();
+        } catch (IllegalArgumentException e){
+            log.error("Errors: {}", e);
+        }
         log.info("New Saved Team Id: {}", team.getId());
-        throw new DataIntegrityViolationException("Throwing exception for demoing Rollback!!!");
+        return team;
     }
 
     public Long saveTeamReturnNewID(Team team){
