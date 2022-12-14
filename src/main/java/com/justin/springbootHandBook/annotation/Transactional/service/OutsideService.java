@@ -115,4 +115,26 @@ public class OutsideService {
         teamRepository.save(team);
         new Thread(() -> insideService.save_ThrowException(new Team("childThread"))).start();
     }
+
+
+    @Transactional
+    public void tryCatch(Team team){
+        try {
+            teamRepository.save(team);
+            int a = 1/0;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public void tryCatchAndThrow(Team team) throws Exception{
+        try {
+            teamRepository.save(team);
+            int a = 1/0;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new Exception();
+        }
+    }
 }
