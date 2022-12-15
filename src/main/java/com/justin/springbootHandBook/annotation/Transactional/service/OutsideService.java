@@ -2,10 +2,15 @@ package com.justin.springbootHandBook.annotation.Transactional.service;
 
 import com.justin.springbootHandBook.annotation.Transactional.dao.TeamRepository;
 import com.justin.springbootHandBook.annotation.Transactional.entity.Team;
+import com.justin.springbootHandBook.exception.MyCheckedException;
+import com.justin.springbootHandBook.exception.MyRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import java.util.concurrent.TimeoutException;
 
 @Service
 @Slf4j
@@ -65,16 +70,16 @@ public class OutsideService {
 //    }
 
 
-//    @Transactional(rollbackFor = {ClassNotFoundException.class})
-//    public void changeNum()  {
-//        svcA.save();    // svcA.save() will execute normally.
-//        try {
-//            Class.forName("The Class do not Exist"); //throws
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        svcB.update();  // svcB.update() will execute normally.
-//    }
+    @Transactional(rollbackFor = {ClassNotFoundException.class})
+    public void changeNum()  {
+        svcA.save();    // svcA.save() will execute normally.
+        try {
+            Class.forName("The Class do not Exist"); //throws
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        svcB.update();  // svcB.update() will execute normally.
+    }
 
 
     @Transactional
@@ -128,6 +133,16 @@ public class OutsideService {
     }
 
     @Transactional
+    public void tryCatchCustomizeException(Team team){
+        try {
+            teamRepository.save(team);
+            throw new MyCheckedException("my custom exception");
+        } catch (MyCheckedException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Transactional
     public void tryCatchAndThrow(Team team) throws Exception{
         try {
             teamRepository.save(team);
@@ -135,6 +150,64 @@ public class OutsideService {
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new Exception();
+        }
+    }
+
+
+    @Transactional
+    public void tryCatchAndThrowOtherRuntimeException(Team team) {
+        try {
+            teamRepository.save(team);
+            int a = 1/0;
+        } catch (ArithmeticException e) {
+            log.error(e.getMessage());
+            throw new NullPointerException();
+        }
+    }
+
+    @Transactional
+    public void tryCatchAndThrowOtherCheckedException(Team team) throws TimeoutException {
+        try {
+            teamRepository.save(team);
+            int a = 1/0;
+        } catch (ArithmeticException e) {
+            log.error(e.getMessage());
+            throw new TimeoutException();
+        }
+    }
+
+    @Transactional
+    public void tryCatchAndThrowCustomizeRuntimeException(Team team) {
+        try {
+            teamRepository.save(team);
+            int a = 1/0;
+        } catch (ArithmeticException e) {
+            log.error(e.getMessage());
+            throw new MyRuntimeException();
+        }
+    }
+
+    @Transactional
+    public void tryCatchAndThrowCustomizeCheckedException(Team team) throws MyCheckedException {
+        try {
+            teamRepository.save(team);
+            throw new MyCheckedException("my custom exception");
+        } catch (MyCheckedException e) {
+            log.error(e.getMessage());
+            throw new MyCheckedException("MyException");
+        }
+    }
+
+
+    @Transactional
+    public void tryCatchAndThrowCustomizeCheckedExceptionSetRollbackOnly(Team team) throws MyCheckedException {
+        try {
+            teamRepository.save(team);
+            throw new MyCheckedException("my custom exception");
+        } catch (MyCheckedException e) {
+            log.error(e.getMessage());
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new MyCheckedException("MyException");
         }
     }
 }
