@@ -70,16 +70,16 @@ public class OutsideService {
 //    }
 
 
-    @Transactional(rollbackFor = {ClassNotFoundException.class})
-    public void changeNum()  {
-        svcA.save();    // svcA.save() will execute normally.
-        try {
-            Class.forName("The Class do not Exist"); //throws
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        svcB.update();  // svcB.update() will execute normally.
-    }
+//    @Transactional(rollbackFor = {ClassNotFoundException.class})
+//    public void changeNum()  {
+//        svcA.save();    // svcA.save() will execute normally.
+//        try {
+//            Class.forName("The Class do not Exist"); //throws
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        svcB.update();  // svcB.update() will execute normally.
+//    }
 
 
     @Transactional
